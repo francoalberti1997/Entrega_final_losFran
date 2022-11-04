@@ -37,9 +37,16 @@ def ingreso(request) :
 
 def busqueda(request):
     
-    nombre = request.POST["nombre"]
-    return render(request, "PrimeraApp/busqueda.html", {"nombre":nombre})
+    nombres = request.POST["nombre"]
+    contraseña = request.POST["contraseña"]
 
+    objetos = models.Usuarios.objects.filter(nombre = nombres, contraseña = contraseña)
+    
+    if objetos:
 
+        contexto = {"nombre":nombres, "contraseña":contraseña, "objetos":objetos}
+        return render(request, "PrimeraApp/busqueda.html",contexto)
+
+    return redirect("home")
 
     

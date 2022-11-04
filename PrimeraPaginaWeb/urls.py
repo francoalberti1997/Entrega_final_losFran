@@ -23,7 +23,7 @@ urlpatterns = [
     path('padre', views.padre, name = "padre"),
     path('home/ingreso/', views.ingreso), 
     path('contacto/', views.contacto), 
-    path('home/busqueda/', views.busqueda), 
+    path('home/busqueda/', views.busqueda, name = "busqueda"), 
 ]
 
 

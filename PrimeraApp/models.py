@@ -27,9 +27,7 @@ class Usuarios(models.Model):
     apellido = models.CharField(max_length = 25)
     contraseña = models.CharField(max_length = 25)
 
-    def __str__(self):
-        a =" "
-        return(f"{self.nombre + a +  self.apellido}")
+
 
     
 
