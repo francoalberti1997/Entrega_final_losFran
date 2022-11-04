@@ -28,7 +28,8 @@ class Usuarios(models.Model):
     contraseña = models.CharField(max_length = 25)
 
 
-
+    def __str__(self) -> str:
+        return (f" {self.nombre}" + " " + f" {self.apellido} ")
     
 
     class Meta:
