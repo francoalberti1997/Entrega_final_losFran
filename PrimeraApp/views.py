@@ -23,26 +23,23 @@ def contacto(request):
 
 def home(request):
     experiencias =models.Experiencias.objects.all
-    criterio = "3"    
+    criterio = "bueno"    
 
     return render(request, "PrimeraApp/home.html", {"experiencias":experiencias, "criterio":criterio})
 
 
 def ingreso(request) :
 
-    informacion = request.GET["nombre"] #trabajando en que información, el nombrey contraseña introducido matcheen con la DB (usuarios), usar filter
-    contraseña = request.GET["contraseña"] 
+    informacion = request.POST["nombre"] #trabajando en que información, el nombrey contraseña introducido matcheen con la DB (usuarios), usar filter
+    contraseña = request.POST["contraseña"] 
     usuarios = models.Usuarios.objects.all
     pass
 
 def busqueda(request):
+    
+    nombre = request.POST["nombre"]
+    return render(request, "PrimeraApp/busqueda.html", {"nombre":nombre})
 
-    nombre = request.GET["nombre"]
-    if nombre:
-        usuario = models.Usuarios.objects.filter(nombre = nombre)
-        if usuario:
-            print(usuario)
-            return render(request, "PrimeraApp/ingreso.html", {"usuario":usuario}) 
 
 
     

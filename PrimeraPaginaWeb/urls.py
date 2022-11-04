@@ -24,7 +24,6 @@ urlpatterns = [
     path('home/ingreso/', views.ingreso), 
     path('contacto/', views.contacto), 
     path('home/busqueda/', views.busqueda), 
-   
 ]
 
 

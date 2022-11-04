@@ -12,18 +12,16 @@
 <p>
    INGRESAR
 </p>
-<form action="busqueda/" method="">
+<form action="busqueda/" method="POST">
 
    {% csrf_token %}
    <p>ingrese nombre</p>
-   <input type="text" name="nombre">
+   <input type="text" name= "nombre">
    <input type="password" name="contraseña">
 
    <input type="submit" value="enviar">
 
 </form>
-
-
 
 
 
