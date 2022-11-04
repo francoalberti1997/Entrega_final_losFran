@@ -4,8 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Experiencias(models.Model):
-    fecha = models.DateField(auto_now=True)
-    mensaje = models.CharField(max_length = 300)
+
     evaluaciones = (
         ("malo", 'Bad'),
         ("normal", 'Normal'),
@@ -23,10 +22,12 @@ class Experiencias(models.Model):
         verbose_name_plural = "Calificaciones"
 
 class Usuarios(models.Model):
+    experiencia =  models.ForeignKey(Experiencias, on_delete=models.CASCADE, null=True) #quiero que se registre solo con nombre, apellido y contrase. El mensaje y experiencia los pasará el usuario luego que ingrese
     nombre = models.CharField(max_length = 25)
     apellido = models.CharField(max_length = 25)
     contraseña = models.CharField(max_length = 25)
-
+    fecha = models.DateField(auto_now=True)
+    mensaje = models.CharField(max_length = 300, blank=True)#quiero que se registre solo con nombre, apellido y contrase. El mensaje y experiencia los pasará el usuario luego que ingrese
 
     def __str__(self) -> str:
         return (f" {self.nombre}" + " " + f" {self.apellido} ")

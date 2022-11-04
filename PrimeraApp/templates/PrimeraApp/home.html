@@ -25,22 +25,15 @@
 
 
 
-{% for experiencia in experiencias %}
+{% for usuario in usuarios %}
 
-   {% if experiencia.evaluacion == criterio %} 
-   <div id = "resultados">
-      <p id="p_home">
-         {{experiencia.mensaje}}
-      </p>
 
-      <p id="p_home">
-         {{experiencia.fecha}}
-      </p>
-   </div>
+   <p>
+      {{usuario.mensaje}}
+   </p>
 
-   {% endif %}
+
 {% endfor %}
-
 
 
 

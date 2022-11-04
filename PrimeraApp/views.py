@@ -4,7 +4,7 @@ from .forms import InputingForms
 
 
 def padre(request) :
-    return HttpResponse(f"hola")
+    pass
 
 def contacto(request):
     if request.method == "POST":
@@ -22,18 +22,13 @@ def contacto(request):
 
 
 def home(request):
-    experiencias =models.Experiencias.objects.all
-    criterio = "bueno"    
-
-    return render(request, "PrimeraApp/home.html", {"experiencias":experiencias, "criterio":criterio})
+    
+    usuarios =models.Usuarios.objects.filter(experiencia_id = 11)    
 
 
-def ingreso(request) :
+    return render(request, "PrimeraApp/home.html", {"usuarios":usuarios})
 
-    informacion = request.POST["nombre"] #trabajando en que información, el nombrey contraseña introducido matcheen con la DB (usuarios), usar filter
-    contraseña = request.POST["contraseña"] 
-    usuarios = models.Usuarios.objects.all
-    pass
+
 
 def busqueda(request):
     
