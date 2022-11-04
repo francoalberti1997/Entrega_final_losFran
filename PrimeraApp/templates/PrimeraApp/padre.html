@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {% static 'PrimeraApp/css/style.css' %} ">
+
+    <!-- Único meta que se ve en la página (pestaña) -->
+</head>
+
+<body id="padre">
+
+    <nav>
+           <p id="tam_letra">
+
+            <a href="">
+                HOME
+            </a>  
+           </p>
+
+           <p id="tam_letra">
+            <a href="">
+                CONTACTO
+            </a>
+           </p>
+
+           <p id="tam_letra">
+            CURSOS 
+           </p>
+           
+    </nav>
+
+    {% block contenidoQueCambia %}
+
+
+
+    {% endblock %}
+    
+
+
+
+<!--    Footer        -->
+    <footer>
+            
+       <p id ="footer">
+        INICIÁ YA MISMO
+       </p>
+         
+    </footer>
+
+</body>
+
+</html>

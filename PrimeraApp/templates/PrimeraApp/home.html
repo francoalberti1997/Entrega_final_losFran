@@ -1,0 +1,55 @@
+{% extends 'PrimeraApp/padre.html' %} 
+
+{% block contenidoQueCambia %}
+
+{% load static %}
+<html>
+
+<h1>
+   Nuestros alumnos ya están viendo los resultados!   
+</h1>
+
+<p>
+   INGRESAR
+</p>
+<form action="busqueda/" method="">
+
+   {% csrf_token %}
+   <p>ingrese nombre</p>
+   <input type="text" name="nombre">
+   <input type="password" name="contraseña">
+
+   <input type="submit" value="enviar">
+
+</form>
+
+
+
+
+
+{% for experiencia in experiencias %}
+
+   {% if experiencia.evaluacion == criterio %} 
+   <div id = "resultados">
+      <p id="p_home">
+         {{experiencia.mensaje}}
+      </p>
+
+      <p id="p_home">
+         {{experiencia.fecha}}
+      </p>
+   </div>
+
+   {% endif %}
+{% endfor %}
+
+
+
+
+
+
+   
+</html>
+
+{% endblock %}
+

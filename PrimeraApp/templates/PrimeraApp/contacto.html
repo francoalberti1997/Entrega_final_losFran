@@ -1,0 +1,26 @@
+<html>
+
+{% extends 'PrimeraApp/padre.html' %} 
+
+{% block contenidoQueCambia %}
+
+{% load static %}
+<title>Contacto</title>
+
+
+<div id ="resultados">
+
+    <form id ="formulario" action = "" method = "post">
+       {% csrf_token %}
+       {{form.as_p }}
+       <input type="submit" value="Registrarse">
+    </form> 
+ 
+ </div>
+
+
+
+{% endblock %}
+
+
+</html>
