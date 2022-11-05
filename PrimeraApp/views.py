@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import InputingForms
+from .forms import InputingForms, Form_Experiencia
+from django.contrib.auth.forms import UserCreationForm
 
 
 def padre(request) :
@@ -38,10 +39,31 @@ def busqueda(request):
     objetos = models.Usuarios.objects.filter(nombre = nombres, contraseña = contraseña)
     
     if objetos:
-
         contexto = {"nombre":nombres, "contraseña":contraseña, "objetos":objetos}
+        
+
         return render(request, "PrimeraApp/busqueda.html",contexto)
 
     return redirect("home")
 
+
+def registerPage(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        pass
+    return render(request, "PrimeraApp/register.html", {"form":form})
+
+def registro_experiencia(request):
+    mensaje = request.POST["mensaje"]
+    nombre = request.POST["nombre"]
+
+    objeto = models.Usuarios.objects.filter(nombre = nombre)
+    if objeto:
+        objeto.mensaje = mensaje
+        for object in objeto:
+            object.save()
+        return HttpResponse("lo hiciste bien")
+    else:
+        return HttpResponse("se pudrió")
     

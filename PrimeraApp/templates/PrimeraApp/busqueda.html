@@ -1,5 +1,5 @@
 <html>
-
+    <!--   HERENCIA  -->
     {% extends 'PrimeraApp/padre.html' %} 
 
     {% block contenidoQueCambia %}
@@ -8,12 +8,30 @@
 
 
 <h1>
-
+    <!--   BIENVENIDA   -->
+ 
    hola {{nombre}}
 
 </h1>
-    
+        <!--    MODEL QUE SE LLAMA COMENTAR_EXPERIENCIA   -->
+
+<form action=" {% url 'registrar' %} " method="POST">
+    {% csrf_token %}
+    <input type="text" name="mensaje" id=""> mensaje
+
+    <select name="experiencia" id="">
+        <option value="malo" >Malo </option>
+        <option value="normal" >Normal</option>
+        <option value="Good">Good</option>
+      </select>
+      nombre
+      <input type="text" name = "nombre">
+      <input type="submit" name="dejar experiencia" id="">
+</form>
+
     {% endblock %}
+
+
 
 
 

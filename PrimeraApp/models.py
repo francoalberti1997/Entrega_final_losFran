@@ -11,7 +11,7 @@ class Experiencias(models.Model):
         ("bueno", 'Good'),
     )
     evaluacion = models.CharField(max_length = 6, choices = evaluaciones)
-
+    
 
     def __str__(self):
         return(f"{self.evaluacion}")
@@ -36,3 +36,7 @@ class Usuarios(models.Model):
     class Meta:
         verbose_name = "usuario"
         verbose_name_plural = "usuarios"
+
+
+class Eliminar(models.Model):
+    pass
