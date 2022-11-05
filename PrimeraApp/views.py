@@ -38,8 +38,10 @@ def busqueda(request):
 
     objetos = models.Usuarios.objects.filter(nombre = nombres, contraseña = contraseña)
     
+    form = Form_Experiencia()
+
     if objetos:
-        contexto = {"nombre":nombres, "contraseña":contraseña, "objetos":objetos}
+        contexto = {"nombre":nombres, "contraseña":contraseña, "objetos":objetos, "form":form}
         
 
         return render(request, "PrimeraApp/busqueda.html",contexto)
@@ -54,16 +56,21 @@ def registerPage(request):
         pass
     return render(request, "PrimeraApp/register.html", {"form":form})
 
+
+
 def registro_experiencia(request):
     mensaje = request.POST["mensaje"]
     nombre = request.POST["nombre"]
+    experiencia_id = request.POST["experiencias"]
 
-    objeto = models.Usuarios.objects.filter(nombre = nombre)
+    objeto = models.Usuarios.objects.get(nombre = nombre)
+
     if objeto:
-        objeto.mensaje = mensaje
-        for object in objeto:
-            object.save()
-        return HttpResponse("lo hiciste bien")
+        objeto.mensaje= mensaje 
+        objeto.experiencia_id = experiencia_id
+        objeto.save()
+
+        return HttpResponse("exito?")
     else:
         return HttpResponse("se pudrió")
     

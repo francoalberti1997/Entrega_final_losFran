@@ -1,6 +1,7 @@
 from django import forms
 
 from PrimeraApp.models import  Usuarios, Experiencias
+from django.forms.widgets import CheckboxSelectMultiple
 
 class InputingForms(forms.Form):
     nombre = forms.CharField(max_length=20, initial="franco")
@@ -11,6 +12,9 @@ class InputingForms(forms.Form):
 
 class Form_Experiencia(forms.Form):
 
-    experiencias = Usuarios.experiencia
+    nombre = forms.CharField(max_length=50)
+    choices = [(12, "malo"), (10, "normal"), (11, "bueno")]
+    
+    experiencias = forms.ChoiceField(choices = choices)
 
-    mensaje = Usuarios.mensaje
+    mensaje = forms.CharField(max_length= 100, help_text= "no seas muy cruel")
