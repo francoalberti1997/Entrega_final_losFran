@@ -4,9 +4,13 @@ from .forms import InputingForms, Form_Experiencia, CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated
+
 
 def padre(request) :
     pass
+
 
 def contacto(request):
     if request.method == "POST":
@@ -31,7 +35,6 @@ def home(request):
     return render(request, "PrimeraApp/home.html", {"usuarios":usuarios})
 
 
-
 def busqueda(request):
     
     nombres = request.POST["nombre"]
@@ -50,6 +53,7 @@ def busqueda(request):
     return redirect("home")
 
 
+@unauthenticated
 def registerPage(request):
     form = CreateUserForm()
 
@@ -79,7 +83,7 @@ def registro_experiencia(request):
         objeto.save()
         
      
-
+@unauthenticated
 def login_page(request):
     if request.method == "POST":
         username = request.POST.get("username")
