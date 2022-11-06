@@ -49,6 +49,17 @@ footer{
      width: 100%;
    }
 
+span{
+     background-color: antiquewhite;
+     display: flex;
+     width: 500px;
+}
+
+#log{
+     margin-right: 100px;
+     font-size: x-large;
+}
+
 #footer{
      font-size: 100%;
      text-align: center ;

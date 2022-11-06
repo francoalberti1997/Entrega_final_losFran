@@ -5,9 +5,20 @@
 {% load static %}
 <html>
 
-<h1>
-</h1>
+<nav style="background-color: yellow;">
+   <span>
+      <p id = "log">
+      Hola! {{request.user}} 
+      </p>
 
+      <p id = "log">
+      <a href=" {% url 'logout' %} "> logout</a>
+      </p>
+   </span>
+
+
+
+</nav>
 <h2>
    INGRESAR CON NOMBRE  Y CONTRASEÑA
 </h2>

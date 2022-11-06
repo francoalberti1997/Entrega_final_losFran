@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import InputingForms, Form_Experiencia
+from .forms import InputingForms, Form_Experiencia, CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 def padre(request) :
     pass
@@ -50,10 +51,17 @@ def busqueda(request):
 
 
 def registerPage(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
 
     if request.method == "POST":
-        pass
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            name = form.cleaned_data.get("username")
+
+            messages.success(request, "el usuario" + name + "fue creado")
+            return redirect("login")        
+
     return render(request, "PrimeraApp/register.html", {"form":form})
 
 
@@ -69,8 +77,25 @@ def registro_experiencia(request):
         objeto.mensaje= mensaje 
         objeto.experiencia_id = experiencia_id
         objeto.save()
+        
+     
 
-        return HttpResponse("exito?")
-    else:
-        return HttpResponse("se pudrió")
-    
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username = username, password = password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+
+        else:
+            messages.info(request, "password o username incorrecto")
+
+    return render(request, "PrimeraApp/login.html", {})
+
+def logout_page(request):
+    logout(request)
+    return redirect("login")
