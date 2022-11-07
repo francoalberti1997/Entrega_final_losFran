@@ -20,12 +20,10 @@ from PrimeraApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = "home"),
-    path('contacto/', views.contacto, name = "contacto"), 
-    path('busqueda/', views.busqueda, name = "busqueda"), 
     path('registrarse', views.registerPage, name = "register"),
-    path('busqueda/registrar_experiencia', views.registro_experiencia, name = "registrar"),
-    path('login', views.login_page, name = "login"),
+    path('login', views.login_page, name = "login"),    
     path('logout', views.logout_page, name = "logout"),
+    path('contanos_experiencia', views.contanos_experiencia, name = "contanos_experiencia"),
 ]
 
 

@@ -52,11 +52,12 @@ footer{
 span{
      background-color: antiquewhite;
      display: flex;
-     width: 500px;
+     font-size: xx-large;
+     justify-content:space-between;
 }
 
 #log{
-     margin-right: 100px;
+     margin-right: 100px ;
      font-size: x-large;
 }
 
@@ -67,12 +68,19 @@ span{
 }
 /** end footer **/
 
+a{
+     width: 15%;
+     margin-right: 50px;
+     color: black;
+     font-size: x-large;
+}
+
 nav{
-     background-color: black;
-     height: 150px;
+     background-color: darkred;
      display: flex;
      width: 100%;
-     justify-content: center;
+     justify-content: space-between;
+     margin-right: 20px;     
 }
 
 #tam_letra{
@@ -102,9 +110,6 @@ nav{
      position: absolute;
 }
 
-p{
-     background-color: blueviolet;
-}
 
 #p_home{
 background-color: tomato;
@@ -122,3 +127,9 @@ background-color: #008df3;
      margin-left: 950px;
 }
 
+#inicia{
+     background-color: antiquewhite;
+     width: 20%;
+     margin-left: 40%;
+     text-align: center;
+}

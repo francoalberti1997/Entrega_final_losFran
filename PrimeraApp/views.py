@@ -8,53 +8,20 @@ from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated, allowed_users
 from django.contrib.auth.models import Group
 
-def padre(request) :
-    pass
 
-
-def contacto(request):
-    if request.method == "POST":
-        mi_formulario = InputingForms(request.POST)
-        if mi_formulario.is_valid():
-            data = mi_formulario.cleaned_data
-            usuario = models.Usuarios(nombre = data["nombre"], apellido = data["apellido"], contraseña = data["contraseña"])
-            usuario.save()
-            return redirect("home")
-
-    else:
-        mi_formulario = InputingForms()
-
-    return render(request, "PrimeraApp/contacto.html", {"form":mi_formulario})
-
-@login_required(login_url="login")
-@allowed_users(allowed_roles=["Admin", "Customers"])
+#@login_required(login_url="login")
+#@allowed_users(allowed_roles=["Admin", "Customers"])
 def home(request):
+    experiencias = models.Experiencias.objects.all()
+    if request.method == "POST":
+        messages.info(request, "ya estas registrado {}".format(request.user))
     
-    usuarios =models.Usuarios.objects.filter(experiencia_id = 11)    
+    return render(request, "PrimeraApp/home.html", {"experiencias":experiencias})
 
-    return render(request, "PrimeraApp/home.html", {"usuarios":usuarios})
+#lugar donde comentás tu experiencia sobre el curso una vez logueado 
 
- 
-def busqueda(request):
-    
-    nombres = request.POST["nombre"]
-    contraseña = request.POST["contraseña"]
+def registerPage(request):  
 
-    objetos = models.Usuarios.objects.filter(nombre = nombres, contraseña = contraseña)
-    
-    form = Form_Experiencia()
-
-    if objetos:
-        contexto = {"nombre":nombres, "contraseña":contraseña, "objetos":objetos, "form":form}
-        
-
-        return render(request, "PrimeraApp/busqueda.html",contexto)
-
-    return redirect("home")
-
-
-@unauthenticated
-def registerPage(request):
     form = CreateUserForm()
 
     if request.method == "POST":
@@ -67,29 +34,15 @@ def registerPage(request):
             group = Group.objects.get(name = "Customers") 
             user.groups.add(group)
 
-            messages.success(request, "el usuario " + username + "fue creado " +
+            messages.success(request, "el usuario " + username + " fue creado " +
             " y agregado al grupo: " +
-             group.name)
+            group.name)
             
             return redirect("login")        
-    
+
     return render(request, "PrimeraApp/register.html", {"form":form})
 
 
-
-def registro_experiencia(request):
-    mensaje = request.POST["mensaje"]
-    nombre = request.POST["nombre"]
-    experiencia_id = request.POST["experiencias"]
-
-    objeto = models.Usuarios.objects.get(nombre = nombre)
-
-    if objeto:
-        objeto.mensaje= mensaje 
-        objeto.experiencia_id = experiencia_id
-        objeto.save()   
-    
-        return redirect("home")
      
 @unauthenticated
 def login_page(request):
@@ -108,6 +61,11 @@ def login_page(request):
 
     return render(request, "PrimeraApp/login.html", {})
 
+
 def logout_page(request):
     logout(request)
     return redirect("login")
+
+@unauthenticated
+def contanos_experiencia(request):
+   pass

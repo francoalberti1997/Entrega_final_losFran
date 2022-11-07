@@ -5,56 +5,63 @@
 {% load static %}
 <html>
 
-<nav style="background-color: yellow;">
    <span>
-      <p id = "log">
-      Hola! {{request.user}} 
-      </p>
+      <div>
+      {% if user.is_authenticated %}
+         Hola! {{request.user}} 
+      {% else %}
+         
+            Hola visitante! Te recomendamos loguearte o registrarte para acceder a nuestro contenido gratuito!
+         
+      {% endif %}
+      </div>
 
-      <p id = "log">
-      <a href=" {% url 'logout' %} "> logout</a>
-      </p>
+
+  
+      
+         
+         {%for message in messages%}
+            {{message}}
+         {% endfor %}
+
+         
+
+
+
+      <div>
+         {% if not user.is_authenticated %}  
+      <a href=" {% url 'login' %} "> 
+         LOGIN
+      </a>
+
+         {% else %}
+         <a href=" {% url 'logout' %} "> 
+            LOGOUT   
+         </a>
+         {% endif %}
+      </div>
+   
    </span>
 
 
-
 </nav>
-<h2>
-   INGRESAR CON NOMBRE  Y CONTRASEÑA
-</h2>
 
-
-
-<form action="busqueda/" method="POST">
-
-   {% csrf_token %}
-   <p>ingrese nombre</p>
-   <input type="text" name= "nombre">
-   <input type="password" name="contraseña">
-
-   <input type="submit" value="enviar">
-
-</form>
-
-<h1>
+<h1 style="background-color: white;">
 Nuestros alumnos ya están viendo los resultados!   
 </h1>
-{% for usuario in usuarios %}
+
+<div>
+   {%for experiencia in experiencias%}
+      <H1 style="background-color: gainsboro; width: 30%;">
+      {{experiencia.mensaje}}
+      </H1>
+   {% endfor %}
+</div>
 
 
-   <p>
-      {{usuario.mensaje}}
-   </p>
-
-
-{% endfor %}
-
-
-
-
-
-   
 </html>
+
+
 
 {% endblock %}
 

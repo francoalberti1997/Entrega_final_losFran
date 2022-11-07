@@ -1,6 +1,5 @@
 from django import forms
 
-from PrimeraApp.models import  Usuarios, Experiencias
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
