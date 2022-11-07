@@ -5,8 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthenticated
-
+from .decorators import unauthenticated, allowed_users
+from django.contrib.auth.models import Group
 
 def padre(request) :
     pass
@@ -26,15 +26,15 @@ def contacto(request):
 
     return render(request, "PrimeraApp/contacto.html", {"form":mi_formulario})
 
-
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["Admin", "Customers"])
 def home(request):
     
     usuarios =models.Usuarios.objects.filter(experiencia_id = 11)    
 
-
     return render(request, "PrimeraApp/home.html", {"usuarios":usuarios})
 
-
+ 
 def busqueda(request):
     
     nombres = request.POST["nombre"]
@@ -60,12 +60,19 @@ def registerPage(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            name = form.cleaned_data.get("username")
+            user = form.save()
 
-            messages.success(request, "el usuario" + name + "fue creado")
+            username = form.cleaned_data.get("username")
+
+            group = Group.objects.get(name = "Customers") 
+            user.groups.add(group)
+
+            messages.success(request, "el usuario " + username + "fue creado " +
+            " y agregado al grupo: " +
+             group.name)
+            
             return redirect("login")        
-
+    
     return render(request, "PrimeraApp/register.html", {"form":form})
 
 
@@ -80,8 +87,9 @@ def registro_experiencia(request):
     if objeto:
         objeto.mensaje= mensaje 
         objeto.experiencia_id = experiencia_id
-        objeto.save()
-        
+        objeto.save()   
+    
+        return redirect("home")
      
 @unauthenticated
 def login_page(request):
