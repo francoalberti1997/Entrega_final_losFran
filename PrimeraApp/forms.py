@@ -1,30 +1,26 @@
+from django.forms import ModelForm
 from django import forms
 
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Experiencias
 
 
-class InputingForms(forms.Form):
-    nombre = forms.CharField(max_length=20, initial="franco")
-    apellido = forms.CharField(max_length=20)
-#    edad = forms.IntegerField(help_text= 'introduce una edad válida')
-    contraseña = forms.CharField(widget = forms.PasswordInput())
-#    comentario = forms.CharField(widget= forms.Textarea())
-
-class Form_Experiencia(forms.Form):
-
-    nombre = forms.CharField(max_length=50)
-    choices = [(12, "malo"), (10, "normal"), (11, "bueno")]
-    
-    experiencias = forms.ChoiceField(choices = choices)
-
-    mensaje = forms.CharField(max_length= 100, help_text= "no seas muy cruel")
+class Form_Experiencia(ModelForm):
+    class Meta:
+        model = Experiencias
+        fields = ["evaluacion", "mensaje"]
+        widgets = {
+                'mensaje': forms.Textarea(attrs={'cols': 100, 'rows': 20}),
+            }
+                
+#puedo cargarle error messages
 
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
         
-
+        
+    

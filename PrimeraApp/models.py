@@ -12,7 +12,9 @@ class Experiencias(models.Model):
     )
     evaluacion = models.CharField(max_length = 6, choices = evaluaciones)
     
-    mensaje = models.CharField(max_length = 300, blank=True)
+    mensaje = models.CharField(max_length = 300, blank=False)
+
+   
 
     def __str__(self):
         return(f"{self.evaluacion}")

@@ -1,11 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import InputingForms, Form_Experiencia, CreateUserForm
+from .forms import Form_Experiencia, CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthenticated, allowed_users
+from .decorators import unauthenticated, allowed_users, authenticated
 from django.contrib.auth.models import Group
 
 
@@ -66,6 +66,16 @@ def logout_page(request):
     logout(request)
     return redirect("login")
 
-@unauthenticated
+@authenticated
 def contanos_experiencia(request):
-   pass
+    if request.method == "POST":
+        formulario = Form_Experiencia(request.POST)   
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
+            return redirect ("home")  
+    else:   
+        formulario = Form_Experiencia()
+
+    return render(request, "PrimeraApp/formulario.html", {"formulario":formulario})
+
