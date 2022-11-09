@@ -6,11 +6,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated, allowed_users, authenticated
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+from django.contrib.auth import get_user_model
 
 
-#@login_required(login_url="login")
-#@allowed_users(allowed_roles=["Admin", "Customers"])
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["Admin", "Customers"])
 def home(request):
     experiencias = models.Experiencias.objects.all()
     if request.method == "POST":
@@ -79,3 +81,11 @@ def contanos_experiencia(request):
 
     return render(request, "PrimeraApp/formulario.html", {"formulario":formulario})
 
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["Admin"])
+def profile(request):
+
+    users = User.objects.filter(groups='1')
+    admins = User.objects.filter(groups='2')
+
+    return render(request, "PrimeraApp/profile.html", {"users":users, "admins":admins})
