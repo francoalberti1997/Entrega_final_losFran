@@ -21,7 +21,7 @@ def home(request):
     return render(request, "PrimeraApp/home.html", {"experiencias":experiencias})
 
 #lugar donde comentás tu experiencia sobre el curso una vez logueado 
-
+@unauthenticated
 def registerPage(request):  
 
     form = CreateUserForm()
@@ -84,8 +84,12 @@ def contanos_experiencia(request):
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin"])
 def profile(request):
-
-    users = User.objects.filter(groups='1')
+    
+"""    users = User.objects.filter(groups='1')
     admins = User.objects.filter(groups='2')
 
-    return render(request, "PrimeraApp/profile.html", {"users":users, "admins":admins})
+    return render(request, "PrimeraApp/profile.html", {"usuarios":users, "admins":admins})
+
+"""
+
+    
