@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import Form_Experiencia, CreateUserForm
+from .forms import Form_Experiencia, CreateUserForm, ObjetoForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -84,12 +84,10 @@ def contanos_experiencia(request):
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin"])
 def profile(request):
+    if request.method == "POST":
+        form = Form_Experiencia()#info final
     
-"""    users = User.objects.filter(groups='1')
-    admins = User.objects.filter(groups='2')
-
-    return render(request, "PrimeraApp/profile.html", {"usuarios":users, "admins":admins})
-
-"""
-
+    else:
+        form = ObjetoForm()
+    return render(request, "PrimeraApp/profile.html", {"form":form})
     

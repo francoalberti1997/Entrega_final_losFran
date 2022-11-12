@@ -53,10 +53,12 @@ class Usuarios(User):
 
     def __str__(self):
         return(f"esta es la clase usuarios. {self.name}  {self.apellido} ")
+    def retrieve(self, grupo):
+        if grupo == "Admin":
+            return User.objects.filter(groups='1')
+        elif grupo == "Customers":
+            return User.objects.filter(groups='2')
+        else:
+            return (f"el grupo {grupo} no forma parte los grupos de usuarios")
+        
 
-
-Franco = Usuarios("Franco", "Alberti")
-
-print(Franco, "holdsdsda")
-
-print("Sas")

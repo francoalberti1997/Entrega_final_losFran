@@ -15,13 +15,21 @@ class Form_Experiencia(ModelForm):
                 'mensaje': forms.Textarea(attrs={'cols': 100, 'rows': 20}),
             }
                 
-#puedo cargarle error messages
 
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+#form que se define según el objeto que se le pase
+class ObjetoForm(forms.Form):
+    objeto = forms.CharField(max_length=200)
+    
+
+    
+
+
+    
         
 
         
