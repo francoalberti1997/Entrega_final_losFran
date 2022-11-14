@@ -84,16 +84,25 @@ def contanos_experiencia(request):
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin"])
 def profile(request):    
-    return render(request, "PrimeraApp/profile.html")
+    usuarios = models.User.objects.all()
+    return render(request,"PrimeraApp/profile.html", {"usuarios":usuarios})
 
-def Crud_experiencias(request):
-    if request.POST["opcion"] == "Experiencias":
-        forms = models.Experiencias.objects.all()
-        
-    if request.POST["opcion"] == "Usuarios":
-        forms = models.User.objects.all()
-    
-    return render(request, "PrimeraApp/profile_exp.html", {"forms":forms})
 
-def Crud(request):
-    pass
+def update(request, pk):
+    usuario = models.User.objects.get(id=pk)
+    form = CreateUserForm(instance=usuario)
+
+    if request.method == "POST":
+        form = CreateUserForm(request.POST, instance=usuario)
+        if form.is_valid():
+            user = form.save()
+            return redirect('profile')
+    return render(request,"PrimeraApp/profile.html", {"form":form})
+
+def delete(request, pk): 
+    usuario = models.User.objects.get(id=pk)
+    contexto = {"form":usuario}
+    if request.POST:
+        usuario.delete()
+        return redirect("profile")
+    return render(request, "PrimeraApp/delete.html", contexto)

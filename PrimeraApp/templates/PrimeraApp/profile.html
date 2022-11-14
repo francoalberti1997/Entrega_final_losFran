@@ -7,22 +7,34 @@
 </head>
 {% block contenidoQueCambia %}
 <body>
+<tr>
+    USUARIOS        
 
-    <form action=" {% url 'crud_exp' %} " method="POST">
+    {%for usuario in usuarios%}
+    <td>
+        <p>{{usuario}}
+        <a href="{% url 'update' usuario.id %}">
+            Update
+        </a>
+
+        <a href=" {% url 'delete' usuario.id %} ">
+            Delete
+        </a>
+            </p>
+    </td>
+    {% endfor %}
+</tr>
+
+
+    {% if form %}
+    <form action="" method="POST">
+
         {% csrf_token %}
-        
-        <select name="opcion" id="">
+        {{form.as_p}}
 
-            <option value="Experiencias">Experiencias</option>
-            <option value="Usuarios">Usuarios</option>
-
-        </select>
-
-        <input type="submit" value="enviars">
+    <input type="submit" value="enviar">
     </form>
-
- 
-
+    {% endif %}
 </body>
 
 {% endblock %}

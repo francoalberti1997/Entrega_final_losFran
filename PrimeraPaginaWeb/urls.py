@@ -25,8 +25,8 @@ urlpatterns = [
     path('logout', views.logout_page, name = "logout"),
     path('contanos_experiencia', views.contanos_experiencia, name = "contanos_experiencia"),
     path('profile', views.profile, name = "profile"),
-    path('crud_exp', views.Crud_experiencias, name = "crud_exp"),
-    path('Crud', views.Crud, name = "Crud"),
+    path('update/<str:pk>/', views.update, name = "update"),
+    path('delete/<str:pk>/', views.delete, name = "delete")
 ]
 
 
