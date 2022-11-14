@@ -8,13 +8,21 @@
 {% block contenidoQueCambia %}
 <body>
 
-    <form action="" method="POST">
+    <form action=" {% url 'crud_exp' %} " method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-    <input type="submit" name="objeto" value="enviar_todo">
+        
+        <select name="opcion" id="">
+
+            <option value="Experiencias">Experiencias</option>
+            <option value="Usuarios">Usuarios</option>
+
+        </select>
+
+        <input type="submit" value="enviars">
     </form>
-    
+
+ 
+
 </body>
-</html>
 
 {% endblock %}

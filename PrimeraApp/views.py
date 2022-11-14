@@ -83,11 +83,17 @@ def contanos_experiencia(request):
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin"])
-def profile(request):
-    if request.method == "POST":
-        form = Form_Experiencia()#info final
+def profile(request):    
+    return render(request, "PrimeraApp/profile.html")
+
+def Crud_experiencias(request):
+    if request.POST["opcion"] == "Experiencias":
+        forms = models.Experiencias.objects.all()
+        
+    if request.POST["opcion"] == "Usuarios":
+        forms = models.User.objects.all()
     
-    else:
-        form = ObjetoForm()
-    return render(request, "PrimeraApp/profile.html", {"form":form})
-    
+    return render(request, "PrimeraApp/profile_exp.html", {"forms":forms})
+
+def Crud(request):
+    pass

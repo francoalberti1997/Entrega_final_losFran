@@ -1,0 +1,29 @@
+{% extends 'PrimeraApp/padre.html' %} 
+
+{% load static %}
+
+
+<title>Profile-Experiencias</title>
+</head>
+
+
+{% block contenidoQueCambia %}
+
+<body>
+
+   <form action="{% url 'Crud' %}" method="POST">
+
+      {%for i in forms%}
+      {% csrf_token %}
+      
+      <div>{{i}}-----------<button>delete</button></div>
+      <br> 
+      {% endfor %}
+   
+   
+   <div><input type="submit" value="enviar"></div>
+
+</form>
+</body>
+
+{% endblock %}

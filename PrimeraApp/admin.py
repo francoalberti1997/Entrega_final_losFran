@@ -5,3 +5,4 @@ from PrimeraApp.models import Experiencias
 
 
 admin.site.register(Experiencias)
+
