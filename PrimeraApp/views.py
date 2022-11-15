@@ -83,10 +83,17 @@ def contanos_experiencia(request):
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin"])
-def profile(request):    
+def profile(request, name = None):    #agregar más con django form
     usuarios = models.User.objects.all()
-    return render(request,"PrimeraApp/profile.html", {"usuarios":usuarios})
+    name = request.GET.get("info")
+    if name:
+        usuarios = models.User.objects.filter(username = name)
+    contexto = {"usuarios":usuarios}
 
+    return render(request,"PrimeraApp/profile.html", contexto)
+
+def search(request):
+    pass
 
 def update(request, pk):
     usuario = models.User.objects.get(id=pk)
