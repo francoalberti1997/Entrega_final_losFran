@@ -1,0 +1,24 @@
+{% extends 'PrimeraApp/padre.html' %} 
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+<h1>
+    EXPERIENCIAS
+</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+{% for i in experiences %}
+  <p>  {{i}}
+
+    <button name="id" value=" {{i.id}} ">
+        DELETE
+    </button>
+
+  </p>
+{% endfor %}
+</form>
+
+
+{% endblock %}

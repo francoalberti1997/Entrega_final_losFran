@@ -27,27 +27,16 @@
 
 <tr>
 
-<form action="">
-
-    <input type="text" name="info" id="">
-    <input type="submit" value = "buscar">
-
-</form>    
 
 </tr>
 
+<form method="">
+    {{ form.as_p }}
+    <button class="button is-success is-fullwidth is-medium mt-5"
+            type="submit">Enviar
+    </button>
+</form>
 
-    {% if form %}
-    <form action="" method="POST">
-
-        {% csrf_token %}
-        {{form.as_p}}
-
-    <input type="submit" value="enviar">
-    </form>
-    {% endif %}
-
-    
 </body>
 
 {% endblock %}

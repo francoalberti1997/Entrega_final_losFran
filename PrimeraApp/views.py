@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import Form_Experiencia, CreateUserForm, ObjetoForm
+from .forms import Form_Experiencia, CreateUserForm, ObjetoForm, SearchForm, SettingsForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -85,15 +85,36 @@ def contanos_experiencia(request):
 @allowed_users(allowed_roles=["Admin"])
 def profile(request, name = None):    #agregar más con django form
     usuarios = models.User.objects.all()
-    name = request.GET.get("info")
+    form = SearchForm()
+    name = request.GET.get("name")
+
     if name:
         usuarios = models.User.objects.filter(username = name)
-    contexto = {"usuarios":usuarios}
+    contexto = {"usuarios":usuarios, "form":form}
 
     return render(request,"PrimeraApp/profile.html", contexto)
 
-def search(request):
-    pass
+def settings(request):
+    form = SettingsForm(request.POST)
+    if request.method == "POST":
+        form = request.POST["seccion"]
+        if form == "Experiencias":
+            return redirect("experiences")
+        elif form == "Users":
+            return redirect("profile")
+
+    contexto = {"form":form}
+    return render(request,"PrimeraApp/settings.html", contexto)
+
+
+def config_experiences(request):
+    experiencia = models.Experiencias.objects.all()
+    if request.POST:
+        experiencia = models.Experiencias.objects.filter(id=request.POST["id"])
+        experiencia.delete()
+        return redirect('home')
+    return render(request,"PrimeraApp/experiences_config.html", {"experiences":experiencia})
+
 
 def update(request, pk):
     usuario = models.User.objects.get(id=pk)
@@ -113,3 +134,4 @@ def delete(request, pk):
         usuario.delete()
         return redirect("profile")
     return render(request, "PrimeraApp/delete.html", contexto)
+

@@ -29,11 +29,15 @@ class ObjetoForm(ModelForm):
         fields = ["objeto"]
 
     
-
+class SearchForm(forms.Form):
+    name = forms.CharField(max_length=25, help_text="introducir nombre")
 
     
         
+class SettingsForm(forms.Form):
+    lista = ( ("Experiencias", 'Experiencias'),("Users", 'Users'))
 
+    seccion = forms.ChoiceField(choices=lista)
         
         
     
