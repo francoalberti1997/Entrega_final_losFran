@@ -42,8 +42,7 @@ class Usuarios(User):
             return User.objects.filter(groups='2')
         else:
             return (f"el grupo {grupo} no forma parte los grupos de usuarios")
-        
-
+    
 
 
 

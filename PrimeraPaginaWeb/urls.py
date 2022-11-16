@@ -29,7 +29,8 @@ urlpatterns = [
     path('update/<str:pk>/', views.update, name = "update"),
     path('delete/<str:pk>/', views.delete, name = "delete"),
     path('experiences', views.config_experiences, name = "experiences"),
-    path('settings', views.settings, name = "settings")
+    path('settings', views.settings, name = "settings"),
+    
    
 ]
 

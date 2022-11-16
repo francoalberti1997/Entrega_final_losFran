@@ -10,7 +10,6 @@ from django.contrib.auth.models import Group, User
 from django.contrib.auth import get_user_model
 
 
-
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["Admin", "Customers"])
 def home(request):
