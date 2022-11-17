@@ -29,6 +29,9 @@ class Experiencias(models.Model):
 
 
 class Usuarios(User):
+
+    curso = models.ForeignKey("Curso", on_delete=models.CASCADE,)
+    
     def __init__(self, name, apellido):
         self.apellido = apellido
         self.name = name
@@ -46,28 +49,13 @@ class Usuarios(User):
 
 
 
-class Crud(models.Model):
-    lista_de_objetos = (
-        (Experiencias, "Experiencias"),
-        (Usuarios, "usuarios"),
-    )
-
-    objeto = models.CharField(choices=lista_de_objetos, max_length=50)
+class Curso(models.Model):
+    lista_nombre = (("Basic","Basico"), ("Intermediate","Intermedio"), ("Advanced","Avanzado"))
+    lista_duracion = ((6,"6 meses"), (4,"4 meses"), (3,"3 meses"))
+    
+    nombre = models.CharField(max_length=50, choices=lista_nombre)
+    duracion = models.CharField(max_length=50, choices=lista_duracion)
 
     def __str__(self):
-        return self.print()
-
-    def create(self):
-        return self.create()
-    
-    def retrieve(self, attr):
-        return self.retrieve(attr)
-
-    def update(self, attr, new_attr):
-        self.attr = new_attr
-        return (f"el atributo : {self.attr} cambió a {new_attr}")
-
-    def delete_obj(self):
-        return self.delete()
-    
+        return (f" {self.nombre} ")    
 

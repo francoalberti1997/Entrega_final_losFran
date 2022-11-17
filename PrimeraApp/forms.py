@@ -3,7 +3,7 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Experiencias, Crud
+from .models import Experiencias, Curso
 
 
 class Form_Experiencia(ModelForm):
@@ -21,12 +21,6 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-#form que se define según el objeto que se le pase
-
-class ObjetoForm(ModelForm):
-    class Meta:
-        model = Crud
-        fields = ["objeto"]
 
     
 class SearchForm(forms.Form):

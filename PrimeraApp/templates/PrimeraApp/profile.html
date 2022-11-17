@@ -13,14 +13,14 @@
     {%for usuario in usuarios%}
     <td>
         <p>{{usuario}}
-        <a href="{% url 'update' usuario.id %}">
-            Update
-        </a>
+            <a href="{% url 'update' usuario.id %}">
+                Update
+            </a>
 
-        <a href=" {% url 'delete' usuario.id %} ">
-            Delete
-        </a>
-            </p>
+            <a href=" {% url 'delete' usuario.id %} ">
+                Delete
+            </a>
+        </p>
     </td>
     {% endfor %}    
 </tr>
