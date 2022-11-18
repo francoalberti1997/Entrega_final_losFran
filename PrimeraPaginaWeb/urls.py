@@ -30,7 +30,7 @@ urlpatterns = [
     path('delete/<str:pk>/', views.delete, name = "delete"),
     path('experiences', views.config_experiences, name = "experiences"),
     path('settings', views.settings, name = "settings"),
-    
+    path('profile_form', views.profile_form, name = "profile_form"),
    
 ]
 

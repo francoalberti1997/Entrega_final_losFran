@@ -1,10 +1,10 @@
 from multiprocessing.context import assert_spawning
 from django.contrib import admin
-from PrimeraApp.models import Experiencias, Curso, Usuarios
+from PrimeraApp.models import Experiencias, Curso, Profile
 
 
 
 admin.site.register(Experiencias)
 admin.site.register(Curso)
-admin.site.register(Usuarios)
+admin.site.register(Profile)
 

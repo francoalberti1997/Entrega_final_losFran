@@ -2,25 +2,23 @@
 
 {% load static %}
 
+
+<title>Profile</title>
+</head>
 {% block contenidoQueCambia %}
 
-<h1>
-    EXPERIENCIAS
-</h1>
+
 <form action="" method="POST">
     {% csrf_token %}
-      {% for i in experiences %}
-    <p>  
-      
-      {{i}}
-
+    {{form.as_p}}
+    
     <button name="id" value=" {{i.id}} ">
-        DELETE
+        BOTONAZO
     </button>
 
-  </p>
-{% endfor %}
 </form>
 
 
+
+    
 {% endblock %}

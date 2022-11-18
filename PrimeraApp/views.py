@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm
+from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm, ProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -69,19 +69,25 @@ def logout_page(request):
 
 @authenticated
 def contanos_experiencia(request):
+    usuario = User.objects.get(username=request.user.username)
+
     if request.method == "POST":
         formulario = Form_Experiencia(request.POST)   
         if formulario.is_valid():
             formulario.save()
             messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
+
+            experiencia = models.Experiencias.objects.filter(id=request.POST["id"])
+
             return redirect ("home")  
+
     else:   
         formulario = Form_Experiencia()
 
     return render(request, "PrimeraApp/formulario.html", {"formulario":formulario})
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["Admin"])
+#@allowed_users(allowed_roles=["Admin"])
 def profile(request, name = None):    #agregar más con django form
     usuarios = models.User.objects.all()
     form = SearchForm()
@@ -134,3 +140,12 @@ def delete(request, pk):
         return redirect("profile")
     return render(request, "PrimeraApp/delete.html", contexto)
 
+
+def profile_form(request):
+    form = ProfileForm()
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+    return render(request,"PrimeraApp/profile_form.html", {"form":form})
