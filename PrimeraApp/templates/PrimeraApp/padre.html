@@ -24,11 +24,6 @@
             {% if request.user.is_authenticated %}
             
             
-            <form action="" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="REGISTRARSE">
-            </form>
-
 
             {% else %}
                 <a href="{% url 'register' %}">
@@ -44,6 +39,11 @@
             <a href="{% url 'settings' %}">
                 CONFIGURACIÓN
             </a>
+            
+            <a href="{% url 'cursos' %}">
+                CURSOS
+            </a>
+            
             
            
     </nav>

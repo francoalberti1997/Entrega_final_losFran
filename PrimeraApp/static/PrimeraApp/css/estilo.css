@@ -1,0 +1,13 @@
+div{
+    background-color: white;
+    width: 30%;
+    
+}
+
+article{
+    display: flex;
+    justify-content: space-between;
+    background-color: gray;
+    height: 550px;
+}
+

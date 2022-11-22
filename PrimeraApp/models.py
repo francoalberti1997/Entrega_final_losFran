@@ -28,19 +28,19 @@ class Experiencias(models.Model):
         verbose_name_plural = "Calificaciones"
 
 
+
 class Profile(models.Model):
-    experiencias = models.ForeignKey(Experiencias, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    tiene_experiencia = models.BooleanField(default=False)
-
-
-class Curso(models.Model):
-    lista_nombre = (("Basic","Basico"), ("Intermediate","Intermedio"), ("Advanced","Avanzado"))
-    lista_duracion = (("6","6 meses"), ("4","4 meses"), ("3","3 meses"))
-    nombre = models.CharField(max_length=50, choices=lista_nombre)
-    duracion = models.CharField(max_length=50, choices=lista_duracion)#problema, quiero que el usuario tilde casilla con opciones relativas a lista_nombre
+    tiene_experiencia = models.BooleanField(default=None)
 
     def __str__(self):
-        return (f" {self.nombre} ")    
+        return(f"este es el usuario {self.usuario} ")
 
+class Cursos(models.Model):
+    título = models.CharField(max_length=50)
+    subtítulo = models.CharField(max_length=150)
+    cuerpo = models.CharField(max_length=500)
+    autor = models.CharField(max_length=200)
+    fecha = models.DateField(auto_now_add=True)
+    imagen = models.ImageField()
 
+    

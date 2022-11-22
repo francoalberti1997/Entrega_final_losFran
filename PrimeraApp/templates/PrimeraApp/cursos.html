@@ -1,0 +1,19 @@
+{% extends 'PrimeraApp/padre.html' %} 
+
+{% block contenidoQueCambia %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'PrimeraApp/css/estilo.css' %}">
+
+<article>
+    
+    {% for curso in cursos %}
+    
+        <div>{{curso}}</div>
+
+    {% endfor %}
+
+</article>
+{% endblock %}
+

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm, ProfileForm
+from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -10,13 +10,12 @@ from django.contrib.auth.models import Group, User
 from django.contrib.auth import get_user_model
 
 
-@login_required(login_url="login")
-@allowed_users(allowed_roles=["Admin", "Customers"])
+#@login_required(login_url="login")
+#@allowed_users(allowed_roles=["Admin", "Customers"])
 def home(request):
-    experiencias = models.Experiencias.objects.all()
-    if request.method == "POST":
-        messages.info(request, "ya estas registrado {}".format(request.user))
     
+    experiencias = models.Experiencias.objects.all()
+  
     return render(request, "PrimeraApp/home.html", {"experiencias":experiencias})
 
 #lugar donde comentás tu experiencia sobre el curso una vez logueado 
@@ -39,6 +38,7 @@ def registerPage(request):
             " y agregado al grupo: " +
             group.name)
             
+           
             return redirect("login")        
 
     return render(request, "PrimeraApp/register.html", {"form":form})
@@ -69,18 +69,14 @@ def logout_page(request):
 
 @authenticated
 def contanos_experiencia(request):
-    usuario = User.objects.get(username=request.user.username)
+
 
     if request.method == "POST":
         formulario = Form_Experiencia(request.POST)   
         if formulario.is_valid():
-            formulario.save()
-            messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
-
-            experiencia = models.Experiencias.objects.filter(id=request.POST["id"])
-
-            return redirect ("home")  
-
+                formulario.save()
+                messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
+                return redirect ("home")  
     else:   
         formulario = Form_Experiencia()
 
@@ -96,6 +92,7 @@ def profile(request, name = None):    #agregar más con django form
     if name:
         usuarios = models.User.objects.filter(username = name)
     contexto = {"usuarios":usuarios, "form":form}
+
 
     return render(request,"PrimeraApp/profile.html", contexto)
 
@@ -141,11 +138,9 @@ def delete(request, pk):
     return render(request, "PrimeraApp/delete.html", contexto)
 
 
-def profile_form(request):
-    form = ProfileForm()
-
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-    return render(request,"PrimeraApp/profile_form.html", {"form":form})
+def cursos(request):
+    cursos = models.Cursos.objects.all() 
+    contexto = {"cursos":cursos}
+    
+    return render(request, "PrimeraApp/cursos.html", contexto)
+    
