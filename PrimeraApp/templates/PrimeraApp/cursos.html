@@ -7,13 +7,18 @@
 <link rel="stylesheet" href="{% static 'PrimeraApp/css/estilo.css' %}">
 
 <article>
-    
-    {% for curso in cursos %}
-    
-        <div>{{curso}}</div>
-
+    {% for objeto in objetos %}
+    <div class="cursos_fotos">
+        
+        <h2> {{objeto.título}} </h2>
+        <h3>{{objeto.subtítulo}}</h3>
+        <img src="{{objeto.imagen.url}}" alt="no carga" width="400px" height="400px">
+        
+        
+    </div>
     {% endfor %}
-
 </article>
+
+
 {% endblock %}
 

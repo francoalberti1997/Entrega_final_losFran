@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from PrimeraApp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,8 +33,10 @@ urlpatterns = [
     path('experiences', views.config_experiences, name = "experiences"),
     path('settings', views.settings, name = "settings"),
     path('cursos', views.cursos, name = "cursos"),
-    path('cursos/<str:pk>', views.cursos, name = "cursos"),
+    path('cursos_config', views.cursos_settings, name = "cursos_settings"),
+    path('cursos/<int:cursos_id>', views.cursos_buscar, name = "cursos_buscar"),
    
 ]
 
-
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+  

@@ -3,7 +3,7 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Experiencias
+from .models import Experiencias, Cursos
 
 
 class Form_Experiencia(ModelForm):
@@ -29,8 +29,15 @@ class SearchForm(forms.Form):
     
         
 class SettingsForm(forms.Form):
-    lista = ( ("Experiencias", 'Experiencias'),("Users", 'Users'))
+    lista = ( ("Experiencias", 'Experiencias'),("Users", 'Users'), ("Cursos", 'Cursos'))
 
     seccion = forms.ChoiceField(choices=lista)
-    
 
+
+class CursosForm(ModelForm):
+    class Meta:
+        model = Cursos
+        fields = ["título", "subtítulo", "cuerpo", "autor", "imagen"]
+        enctype="multipart/form-data"
+
+    

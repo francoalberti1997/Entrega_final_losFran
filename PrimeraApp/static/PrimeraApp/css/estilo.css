@@ -1,13 +1,12 @@
 div{
-    background-color: white;
-    width: 30%;
-    
+    background-color: whitesmoke;
+    height: 100%;    
+    justify-content: flex-end;
 }
 
 article{
     display: flex;
     justify-content: space-between;
-    background-color: gray;
-    height: 550px;
+    background-color: black;
+    height: 100%;
 }
-

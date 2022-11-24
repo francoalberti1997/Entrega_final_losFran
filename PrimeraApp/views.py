@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from PrimeraApp import models
-from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm
+from .forms import Form_Experiencia, CreateUserForm, SearchForm, SettingsForm, CursosForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated, allowed_users, authenticated
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import get_user_model
-
+from django.http import Http404
 
 #@login_required(login_url="login")
 #@allowed_users(allowed_roles=["Admin", "Customers"])
@@ -104,6 +104,8 @@ def settings(request):
             return redirect("experiences")
         elif form == "Users":
             return redirect("profile")
+        elif form == "Cursos":
+            return redirect("cursos_settings")
 
     contexto = {"form":form}
     return render(request,"PrimeraApp/settings.html", contexto)
@@ -137,10 +139,27 @@ def delete(request, pk):
         return redirect("profile")
     return render(request, "PrimeraApp/delete.html", contexto)
 
-
 def cursos(request):
-    cursos = models.Cursos.objects.all() 
-    contexto = {"cursos":cursos}
+    objetos= models.Cursos.objects.all()
+    return render(request, "PrimeraApp/cursos.html", {"objetos":objetos})
+
+
+def cursos_buscar(request, cursos_id):
+    objetos = models.Cursos.objects.get(id=cursos_id)
+    if objetos is not None:
+        return render(request, "PrimeraApp/cursos.html", {"objetos":objetos})
     
-    return render(request, "PrimeraApp/cursos.html", contexto)
-    
+    else:
+        raise Http404("imagen no existe")
+
+
+def cursos_settings(request):
+
+    form = CursosForm()
+    if request.method == "POST":
+        form = CursosForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("cursos")
+
+    return render(request,"PrimeraApp/cursos_config.html", {"cursos":cursos, "form":form})
