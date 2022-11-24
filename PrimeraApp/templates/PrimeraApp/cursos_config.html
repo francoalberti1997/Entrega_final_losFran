@@ -4,14 +4,23 @@
 
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'PrimeraApp/css/estilo.css' %}">
 
-{% for curso in cursos %}
-    {{curso}}
-{% endfor %}
+
+<div class="contenedor_gral">
+
+<div class="mostrar_cursos">
+    <h2> CURSOS ACTUALES</h2>
+        {% for curso in cursos %}
+        <p> {{curso}}</p>
+        {% endfor %}
+</div>
+
 
 <div>
 
 <form action="" method="POST" enctype="multipart/form-data">
+    <h2>AGREGAR NUEVOS CURSOS</h2>
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="enviar">
@@ -21,6 +30,7 @@
 
 </div>
 
+</div>
 
 
 

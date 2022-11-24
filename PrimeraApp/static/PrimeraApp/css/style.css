@@ -41,13 +41,7 @@
 
 /** footer **/
 
-footer{
-     position: absolute;
-     bottom: 0;
-     background-color: darkred;
-     height: 50px;
-     width: 100%;
-   }
+
 
 span{
      background-color: antiquewhite;
@@ -132,4 +126,18 @@ background-color: #008df3;
      width: 20%;
      margin-left: 40%;
      text-align: center;
+}
+
+.el_footer{
+    display: flex;
+    flex-direction: column;
+}
+
+footer{
+     margin-top: auto;
+     background-color: darkred;
+ }
+
+.contenedor_curso{
+     display: flex;
 }

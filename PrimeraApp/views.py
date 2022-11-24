@@ -155,6 +155,7 @@ def cursos_buscar(request, cursos_id):
 
 def cursos_settings(request):
 
+    cursos = models.Cursos.objects.all()
     form = CursosForm()
     if request.method == "POST":
         form = CursosForm(request.POST, request.FILES)

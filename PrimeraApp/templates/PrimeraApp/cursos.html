@@ -8,13 +8,24 @@
 
 <article>
     {% for objeto in objetos %}
-    <div class="cursos_fotos">
+    <!--contenedor general -->
+    <div class="contenedor_curso">
         
-        <h2> {{objeto.título}} </h2>
-        <h3>{{objeto.subtítulo}}</h3>
-        <img src="{{objeto.imagen.url}}" alt="no carga" width="400px" height="400px">
-        
-        
+        <!--contenedor de fotos y presentacion-->
+        <div class="cursos_fotos">
+            
+            <h2> {{objeto.título}} </h2>
+            <h3>{{objeto.subtítulo}}</h3>
+            <img src="{{objeto.imagen.url}}" alt="no carga" width="400px" height="400px">
+            
+        </div>
+
+        <!--contenedor del cuerpo del curso-->
+        <div style="font-size: 30px;">
+            {{objeto.cuerpo}}
+            <h3>¡Inicia ya!</h3>
+        </div>
+
     </div>
     {% endfor %}
 </article>

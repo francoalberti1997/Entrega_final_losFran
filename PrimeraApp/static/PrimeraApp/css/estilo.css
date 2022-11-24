@@ -1,12 +1,27 @@
 div{
     background-color: whitesmoke;
     height: 100%;    
-    justify-content: flex-end;
 }
 
 article{
-    display: flex;
-    justify-content: space-between;
+
     background-color: black;
     height: 100%;
 }
+
+footer{
+    margin-top: 100px;
+}
+
+.contenedor_curso{
+    background-color: blueviolet;
+}
+
+.contenedor_gral{
+    display: flex;
+}
+
+.mostrar_cursos{
+    width: 50%;
+}
+
