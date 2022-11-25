@@ -11,8 +11,26 @@
 
 <div class="mostrar_cursos">
     <h2> CURSOS ACTUALES</h2>
+
         {% for curso in cursos %}
+        <div style="background-color: white;">
         <p> {{curso}}</p>
+        
+        
+        <a href="{% url 'update_curso' curso.id %}">
+            Update
+        </a>
+
+        <a href=" {% url 'delete_curso' curso.id %} ">
+            Delete
+        </a>
+
+        <p>
+            Subido por: {{curso.autor}}
+        </p>
+
+        </div>
+
         {% endfor %}
 </div>
 

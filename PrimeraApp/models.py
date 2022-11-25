@@ -28,12 +28,19 @@ class Experiencias(models.Model):
         verbose_name_plural = "Calificaciones"
 
 
-
 class Profile(models.Model):
-    tiene_experiencia = models.BooleanField(default=None)
+    usuario = models.CharField(max_length=100)
 
     def __str__(self):
         return(f"este es el usuario {self.usuario} ")
+
+
+
+class Profile_Experiencias(models.Model):
+    experiencia = models.OneToOneField(Experiencias, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Profile, on_delete=models.CASCADE)
+
+
 
 class Cursos(models.Model):
     título = models.CharField(max_length=50)

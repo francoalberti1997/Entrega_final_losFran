@@ -70,10 +70,17 @@ def logout_page(request):
 @authenticated
 def contanos_experiencia(request):
 
-
     if request.method == "POST":
         formulario = Form_Experiencia(request.POST)   
         if formulario.is_valid():
+                perfil = models.Profile.objects.filter(usuario = str(request.user))
+
+                if not perfil :
+                    perfil = models.Profile.objects.create(usuario = str(request.user))
+                    perfil.save()
+                else:
+                    return HttpResponse("ya hay uno con este nombre")
+
                 formulario.save()
                 messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
                 return redirect ("home")  
@@ -105,7 +112,7 @@ def settings(request):
         elif form == "Users":
             return redirect("profile")
         elif form == "Cursos":
-            return redirect("cursos_settings")
+            return redirect("cursos")
 
     contexto = {"form":form}
     return render(request,"PrimeraApp/settings.html", contexto)
@@ -139,18 +146,25 @@ def delete(request, pk):
         return redirect("profile")
     return render(request, "PrimeraApp/delete.html", contexto)
 
-def cursos(request):
-    objetos= models.Cursos.objects.all()
-    return render(request, "PrimeraApp/cursos.html", {"objetos":objetos})
+def delete_curso(request, cursos_id=None):
 
+        curso = models.Cursos.objects.get(id=cursos_id)
+        curso.delete()
+        return redirect("cursos")
 
-def cursos_buscar(request, cursos_id):
-    objetos = models.Cursos.objects.get(id=cursos_id)
-    if objetos is not None:
-        return render(request, "PrimeraApp/cursos.html", {"objetos":objetos})
-    
+def update_curso(request, cursos_id):
+    curso = models.Cursos.objects.get(id=cursos_id)
+    form = CursosForm(instance=curso)
+
+    if request.POST:
+        
+        curso = CursosForm(request.POST, request.FILES, instance=curso)
+        if curso.is_valid():
+            curso.save()
+        return redirect("cursos")
+
     else:
-        raise Http404("imagen no existe")
+        return render(request, "PrimeraApp/update_curso.html", {"form":form})
 
 
 def cursos_settings(request):
@@ -161,6 +175,18 @@ def cursos_settings(request):
         form = CursosForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            
+            form = models.Cursos.objects.filter(título = request.POST["título"])
+            for object in form:
+                object.autor = str(request.user)
+                object.save()
+
             return redirect("cursos")
 
     return render(request,"PrimeraApp/cursos_config.html", {"cursos":cursos, "form":form})
+
+def mostrar_cursos(request):
+
+    objetos= models.Cursos.objects.all()
+
+    return render(request, "PrimeraApp/cursos.html", {"objetos":objetos})

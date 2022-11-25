@@ -32,10 +32,10 @@ urlpatterns = [
     path('delete/<str:pk>/', views.delete, name = "delete"),
     path('experiences', views.config_experiences, name = "experiences"),
     path('settings', views.settings, name = "settings"),
-    path('cursos', views.cursos, name = "cursos"),
-    path('cursos_config', views.cursos_settings, name = "cursos_settings"),
-    path('cursos/<int:cursos_id>', views.cursos_buscar, name = "cursos_buscar"),
-   
+    path('cursos', views.cursos_settings, name = "cursos"),
+    path('cursos/update/<int:cursos_id>', views.update_curso, name = "update_curso"),
+    path('cursos/<int:cursos_id>', views.delete_curso, name = "delete_curso"),
+    path('mostrar_curso', views.mostrar_cursos, name = "mostrar_curso"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
