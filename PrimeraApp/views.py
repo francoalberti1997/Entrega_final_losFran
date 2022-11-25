@@ -69,19 +69,34 @@ def logout_page(request):
 
 @authenticated
 def contanos_experiencia(request):
+    perfil = models.Profile.objects.filter(usuario = str(request.user))
+    if not perfil :
+        perfil = models.Profile.objects.create(usuario = str(request.user))
+        perfil.save()
+        usuariow = perfil
+    else:
+        for x in perfil:
+            usuariow = x
 
     if request.method == "POST":
         formulario = Form_Experiencia(request.POST)   
         if formulario.is_valid():
-                perfil = models.Profile.objects.filter(usuario = str(request.user))
-
-                if not perfil :
-                    perfil = models.Profile.objects.create(usuario = str(request.user))
-                    perfil.save()
-                else:
-                    return HttpResponse("ya hay uno con este nombre")
-
                 formulario.save()
+               
+                experiencia = models.Experiencias.objects.filter(mensaje = request.POST["mensaje"])#PUEDE HABER MJS IGUALES
+                for y in experiencia:
+                    experience = y         
+
+
+                objeto = models.Profile_Experiencias.objects.filter(usuario = usuariow)
+
+
+                if objeto:
+                    return redirect("ya cargó anteriormente una experiencia")#quizás lleva a update para que la modifique si quiere y mostrarle mensaje en home de que puede cambiarla por ahí
+                else:
+                    profile_exp = models.Profile_Experiencias.objects.create(usuario = usuariow, experiencia=experience)
+                    profile_exp.save()
+
                 messages.success(request,"tu experiencia ha sido registrada y es visible en home. Gracias {}".format(request.user))
                 return redirect ("home")  
     else:   
